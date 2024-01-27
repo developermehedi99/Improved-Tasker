@@ -1,11 +1,7 @@
-import React from "react";
-
 const TaskNotFaund = () => {
   return (
     <div>
-      <p className="text-3xl font-bold">
-        Not Faund task in this time. please add task..
-      </p>
+      <p className="text-3xl font-bold">Task List is empty!</p>
     </div>
   );
 };
