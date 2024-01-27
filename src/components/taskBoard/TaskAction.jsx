@@ -1,4 +1,12 @@
-const TaskAction = ({ onAddTask, onDeleteAllTasks }) => {
+import { useState } from "react";
+
+const TaskAction = ({ onSearch, onAddTask, onDeleteAllTasks }) => {
+  const [searchAction, setSearchAction] = useState("");
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    onSearch(searchAction);
+  };
   return (
     <div>
       {" "}
@@ -13,9 +21,12 @@ const TaskAction = ({ onAddTask, onDeleteAllTasks }) => {
                   id="search-dropdown"
                   className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
                   placeholder="Search Task"
+                  value={searchAction}
+                  onChange={() => setSearchAction(event.target.value)}
                   required
                 />
                 <button
+                  onClick={handleSearch}
                   type="submit"
                   className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
                 >

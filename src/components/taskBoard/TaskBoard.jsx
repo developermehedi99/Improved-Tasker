@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddTaskModal from "./AddTaskModal";
 import TaskAction from "./TaskAction";
 import TaskList from "./TaskList";
+import TaskNotFaund from "./TaskNotFaund";
 
 const TaskBoard = () => {
   const defaultTasks = {
@@ -60,6 +61,15 @@ const TaskBoard = () => {
     setTasks(newTasks);
   };
 
+  const handleSearchAction = (searchAction) => {
+    console.log(searchAction);
+
+    const filtered = tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchAction.toLowerCase())
+    );
+    setTasks([...filtered]);
+  };
+
   return (
     <section className="mb-20" id="tasks">
       {showModal && (
@@ -74,14 +84,19 @@ const TaskBoard = () => {
           <TaskAction
             onDeleteAllTasks={handleDeleteAll}
             onAddTask={() => setShowModal(true)}
+            onSearch={handleSearchAction}
           ></TaskAction>
           <div className="overflow-auto">
-            <TaskList
-              tasks={tasks}
-              onDelete={handleTaskDeleted}
-              onEdit={handleEditTask}
-              onFavorite={handleFavorite}
-            ></TaskList>
+            {tasks.length > 0 ? (
+              <TaskList
+                tasks={tasks}
+                onDelete={handleTaskDeleted}
+                onEdit={handleEditTask}
+                onFavorite={handleFavorite}
+              ></TaskList>
+            ) : (
+              <TaskNotFaund></TaskNotFaund>
+            )}
           </div>
         </div>
       </div>
